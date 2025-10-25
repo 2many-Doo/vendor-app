@@ -1,6 +1,6 @@
 overwrite: true
 schema:
-  - 'http://localhost:4000/api/graphql'
+  - '../backend/src/schema/**/*.ts'
 
 documents:
   - './src/**/*.graphql'
@@ -8,9 +8,14 @@ documents:
 generates:
   ./src/generated/index.ts:
     config:
-      reactApolloVersion: 3
+      reactApolloVersion: 4
       withHooks: true
       skipTokenName: "skipToken"
+      apolloClientImportPath: "@apollo/client"
+      avoidOptionals: true
+      maybeValue: "T | null"
+      withComponent: false
+      withHOC: false
     plugins:
       - 'typescript'
       - 'typescript-operations'

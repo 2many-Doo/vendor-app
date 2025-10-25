@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { useMutation, useQuery, useLazyQuery, useSuspenseQuery } from '@apollo/client/react';
 export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
+export type InputMaybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -19,7 +20,7 @@ export type Scalars = {
 
 export type CreateUserInput = {
   name: Scalars['String']['input'];
-  teamId?: InputMaybe<Scalars['ID']['input']>;
+  teamId: InputMaybe<Scalars['ID']['input']>;
 };
 
 export enum Gender {
@@ -69,7 +70,7 @@ export const CreateUserDocument = gql`
   }
 }
     `;
-export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+export type CreateUserMutationFn = (options?: Apollo.MutationOptions<CreateUserMutation, CreateUserMutationVariables>) => Promise<Apollo.FetchResult<CreateUserMutation>>;
 
 /**
  * __useCreateUserMutation__
@@ -88,13 +89,13 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  *   },
  * });
  */
-export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+export function useCreateUserMutation(baseOptions?: any) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+        return useMutation(CreateUserDocument, options);
       }
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
-export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export type CreateUserMutationResult = Apollo.MutateResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.MutationOptions<CreateUserMutation, CreateUserMutationVariables>;
 export const UsersDocument = gql`
     query Users {
   users {
@@ -119,19 +120,19 @@ export const UsersDocument = gql`
  *   },
  * });
  */
-export function useUsersQuery(baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
+export function useUsersQuery(baseOptions?: any) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+        return useQuery(UsersDocument, options);
       }
-export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersQuery, UsersQueryVariables>) {
+export function useUsersLazyQuery(baseOptions?: any) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+          return useLazyQuery(UsersDocument, options);
         }
-export function useUsersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<UsersQuery, UsersQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+export function useUsersSuspenseQuery(baseOptions?: any) {
+          const options = {...defaultOptions, ...baseOptions}
+          return useSuspenseQuery(UsersDocument, options);
         }
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
 export type UsersSuspenseQueryHookResult = ReturnType<typeof useUsersSuspenseQuery>;
-export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export type UsersQueryResult = ReturnType<typeof useQuery>;
